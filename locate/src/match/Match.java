@@ -31,7 +31,10 @@ public class Match {
 	public void NN(DataTransmissionObject dto){
 		List<SignalStrengthInfoDto> RSSlist1 = new ArrayList<SignalStrengthInfoDto>(dto.getSignalStrengthInfoDto());
 		Collections.sort(RSSlist1);
-		while(RSSlist1.size() > 10){
+//		for(int i=0;i < RSSlist1.size();i++){
+//			System.out.println(RSSlist1.get(i).getSignalStrength());
+//		}
+		while(RSSlist1.size() > 6){
 			RSSlist1.remove(RSSlist1.size()-1);
 		}
 		List<LocationInfo>list = locationInfoDao.getAll();
@@ -40,7 +43,6 @@ public class Match {
 			LocationInfo l = list.get(i);
 			this.currentDis=0.0;
 			for(int j=0;j < RSSlist1.size();j++){
-				if(RSSlist1.get(i).getWiFiName().contains("CMCC") || RSSlist1.get(i).getWiFiName().contains("UNICOM"))continue;
 					
 				List<SignalStrengthInfo> RSSlist2 = signalStrengthInfoDao.getByLocationId(l.getId());
 				

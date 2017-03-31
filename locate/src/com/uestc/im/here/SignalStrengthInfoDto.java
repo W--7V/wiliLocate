@@ -63,7 +63,7 @@ public class SignalStrengthInfoDto implements Serializable,Comparable<SignalStre
 	@Override
 	public int compareTo(SignalStrengthInfoDto o) {
 		if(Integer.parseInt(this.signalStrength) > Integer.parseInt(o.getSignalStrength())){
-			return 0;
+			return -1;
 		}
 		return 1;
 	}
