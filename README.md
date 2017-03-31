@@ -1,4 +1,4 @@
-# wiliLocate
+# wifiLocate
 
 wifi indoor locate
 
