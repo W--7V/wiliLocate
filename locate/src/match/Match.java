@@ -43,9 +43,7 @@ public class Match {
 			LocationInfo l = list.get(i);
 			this.currentDis=0.0;
 			for(int j=0;j < RSSlist1.size();j++){
-					
 				List<SignalStrengthInfo> RSSlist2 = signalStrengthInfoDao.getByLocationId(l.getId());
-				
 				Double s1 = Double.parseDouble(RSSlist1.get(j).getSignalStrength());
 				int flag=0;//后台Location数据中是否包含该AP信息0-否，1-是
 				for(int k=0;k < RSSlist2.size();k++){
