@@ -30,13 +30,18 @@ public class Match {
 	//Nearest Neighbor
 	public void NN(DataTransmissionObject dto){
 		List<SignalStrengthInfoDto> RSSlist1 = new ArrayList<SignalStrengthInfoDto>(dto.getSignalStrengthInfoDto());
+		List<SignalStrengthInfoDto> temp = new ArrayList<SignalStrengthInfoDto>();
 		Collections.sort(RSSlist1);
 //		for(int i=0;i < RSSlist1.size();i++){
 //			System.out.println(RSSlist1.get(i).getSignalStrength());
 //		}
-		while(RSSlist1.size() > 6){
-			RSSlist1.remove(RSSlist1.size()-1);
+//		while(RSSlist1.size() > 6){
+//			RSSlist1.remove(RSSlist1.size()-1);
+//		}
+		for(int i=0; i < 6;i++){
+			temp.add(RSSlist1.get(i));
 		}
+		RSSlist1 = temp;
 		List<LocationInfo>list = locationInfoDao.getAll();
 		int n = list.size();
 		for(int i=0;i < n;i++){
