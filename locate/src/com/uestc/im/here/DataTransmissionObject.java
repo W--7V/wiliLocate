@@ -10,7 +10,7 @@ public class DataTransmissionObject implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -2470114150131911354L;
-	private Integer operationCode;//1:存入数据库，2:待匹配数据，3:匹配成功，返回匹配结果，4:匹配失败，返回错误报告！,5:离线数据保存成功
+	private Integer operationCode;//1:存入数据库，2:待匹配数据，3:匹配成功，返回匹配结果，4:匹配失败，返回错误报告！5:离线数据保存成功!6:清空离线数据！7:清空离线数据成功！
 	private LocationInfoDto locationInfoDto;
 	private List<SignalStrengthInfoDto> signalStrengthInfoDto;
 	private String report;

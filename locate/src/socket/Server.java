@@ -51,14 +51,15 @@ class HandlerThread implements Runnable{
 	@Override
 	public void run() {
 		try {
+			LocationInfoDao locationInfoDao = new LocationInfoDao();
+			SignalStrengthInfoDao signalStrengthInfoDao = new SignalStrengthInfoDao();
+			
 			//读数据
 			ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream())); 
 			DataTransmissionObject dto = (DataTransmissionObject) objectInputStream.readObject();
 			socket.shutdownInput();
 			
 			if(dto.getOperationCode() == 1){//保存离线数据
-				LocationInfoDao locationInfoDao = new LocationInfoDao();
-				SignalStrengthInfoDao signalStrengthInfoDao = new SignalStrengthInfoDao();
 				LocationInfo l = new LocationInfo();
 				l.setRealAddress(dto.getLocationInfoDto().getRealAddress());
 				l = locationInfoDao.save(l);
@@ -79,6 +80,9 @@ class HandlerThread implements Runnable{
 					match.NN(dto);
 					dto.setOperationCode(3);
 				}
+			}else if(dto.getOperationCode() == 6){
+				locationInfoDao.deleteAll();
+				signalStrengthInfoDao.deleteAll();
 			}
 			
 			//写数据

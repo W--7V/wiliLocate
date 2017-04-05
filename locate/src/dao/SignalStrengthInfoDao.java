@@ -27,6 +27,7 @@ public class SignalStrengthInfoDao {
 	}
 	
 	public void close(){
+		this.session.getTransaction().commit();
 		this.session.flush();
 		this.session.close();
 		this.sessionFactory.close();
@@ -35,7 +36,6 @@ public class SignalStrengthInfoDao {
 	public void save(SignalStrengthInfo signalStrengthInfo){
 		this.init();
 		this.session.save(signalStrengthInfo);
-		this.session.getTransaction().commit();
 		this.close();
 	}
 	
@@ -56,4 +56,11 @@ public class SignalStrengthInfoDao {
 		return list;
 	}
 
+	public void deleteAll(){
+		this.init();
+		String hql = "Delete SignalStrengthInfo";
+		Query q = this.session.createQuery(hql);
+		q.executeUpdate();
+		this.close();
+	}
 }

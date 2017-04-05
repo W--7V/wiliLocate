@@ -38,7 +38,7 @@ public class Match {
 //		while(RSSlist1.size() > 6){
 //			RSSlist1.remove(RSSlist1.size()-1);
 //		}
-		for(int i=0; i < 6;i++){
+		for(int i=0; i < 8;i++){
 			temp.add(RSSlist1.get(i));
 		}
 		RSSlist1 = temp;

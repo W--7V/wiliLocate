@@ -28,6 +28,7 @@ public class LocationInfoDao {
 	}
 	
 	public void close(){
+		this.session.getTransaction().commit();
 		this.session.flush();
 		this.session.close();
 		this.sessionFactory.close();
@@ -37,7 +38,6 @@ public class LocationInfoDao {
 		this.init();
 		location.setInsertDate(new Date());
 		this.session.save(location);
-		this.session.getTransaction().commit();
 		this.close();
 		return location;
 	}
@@ -45,7 +45,6 @@ public class LocationInfoDao {
 	public LocationInfo update(LocationInfo locationInfo){
 		this.init();
 		this.session.update(locationInfo);
-		this.session.getTransaction().commit();
 		this.close();
 		return locationInfo;
 	}
@@ -65,5 +64,13 @@ public class LocationInfoDao {
 		list = query.list();
 		this.close();
 		return list;
+	}
+	
+	public void deleteAll(){
+		this.init();
+		String hql = "Delete LocationInfo";
+		Query query =  this.session.createQuery(hql);
+		query.executeUpdate();
+		this.close();
 	}
 }

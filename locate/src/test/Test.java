@@ -1,9 +1,15 @@
 package test;
 
+import dao.LocationInfoDao;
+import dao.SignalStrengthInfoDao;
+
 public class Test {
 
 	public static void main(String[] args) {
-		System.out.println(Math.pow(27, 1.0/3));
+//		SignalStrengthInfoDao dao = new SignalStrengthInfoDao();
+//		dao.deleteAll();
+		LocationInfoDao dao = new LocationInfoDao();
+		dao.deleteAll();
 	}
 
 }
