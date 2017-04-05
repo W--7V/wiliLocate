@@ -72,7 +72,7 @@ public class Match {
 			}
 		}
 		dto.setLocationInfoDto(new LocationInfoDto(locateResult));
-		System.out.println("客户端所在位置"+locateResult.getRealAddress());
+		System.out.println("客户端所在位置:"+locateResult.getRealAddress());
 	}
 	
 }
