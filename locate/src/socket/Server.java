@@ -83,6 +83,7 @@ class HandlerThread implements Runnable{
 			}else if(dto.getOperationCode() == 6){
 				locationInfoDao.deleteAll();
 				signalStrengthInfoDao.deleteAll();
+				dto.setOperationCode(7);
 			}
 			
 			//写数据
