@@ -3,3 +3,4 @@
 /locate/.classpath
 /locate/.project
 /locate/.rebel.xml.bak
+/locate/src/hibernate.cfg.cml
