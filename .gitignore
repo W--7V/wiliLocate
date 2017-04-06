@@ -5,3 +5,4 @@
 /locate/.rebel.xml.bak
 
 *.xml
+locate/src/hibernate.cfg.xml
