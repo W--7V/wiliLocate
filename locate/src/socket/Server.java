@@ -79,7 +79,7 @@ class HandlerThread implements Runnable{
 					dto.setOperationCode(4);
 					dto.setReport("待匹配点WiFi数量太少，无法匹配！");
 				}else{
-					match.NN(dto);
+					dto = match.NN(dto);
 					dto.setOperationCode(3);
 				}
 			}else if(dto.getOperationCode() == 6){

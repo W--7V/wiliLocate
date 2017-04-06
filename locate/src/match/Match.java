@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.hibernate.loader.custom.Return;
+
 import com.uestc.im.here.DataTransmissionObject;
 import com.uestc.im.here.LocationInfoDto;
 import com.uestc.im.here.SignalStrengthInfoDto;
@@ -28,18 +30,16 @@ public class Match {
 	}
 	
 	//Nearest Neighbor
-	public void NN(DataTransmissionObject dto){
+	public DataTransmissionObject NN(DataTransmissionObject dto){
 		List<SignalStrengthInfoDto> RSSlist1 = new ArrayList<SignalStrengthInfoDto>(dto.getSignalStrengthInfoDto());
 		List<SignalStrengthInfoDto> temp = new ArrayList<SignalStrengthInfoDto>();
 		Collections.sort(RSSlist1);
-//		for(int i=0;i < RSSlist1.size();i++){
-//			System.out.println(RSSlist1.get(i).getSignalStrength());
-//		}
-//		while(RSSlist1.size() > 6){
-//			RSSlist1.remove(RSSlist1.size()-1);
-//		}
 		for(int i=0; i < 6;i++){
 			temp.add(RSSlist1.get(i));
+		}
+		if(Integer.parseInt(temp.get(3).getSignalStrength()) < -80){
+			dto.setOperationCode(4);
+			dto.setReport("当前位置距离周围无线热点较远，定位误差较大！");
 		}
 		RSSlist1 = temp;
 		List<LocationInfo>list = locationInfoDao.getAll();
@@ -76,6 +76,7 @@ public class Match {
 		signalStrengthInfoDao.close();
 		dto.setLocationInfoDto(new LocationInfoDto(locateResult));
 		System.out.println("客户端所在位置:"+locateResult.getRealAddress());
+		return dto;
 	}
 	
 }
