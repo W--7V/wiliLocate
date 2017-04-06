@@ -34,9 +34,9 @@ public class SignalStrengthInfoDao {
 	}
 	
 	public void save(SignalStrengthInfo signalStrengthInfo){
-		this.init();
+//		this.init();
 		this.session.save(signalStrengthInfo);
-		this.close();
+//		this.close();
 	}
 	
 	public SignalStrengthInfo get(int id){
@@ -47,12 +47,12 @@ public class SignalStrengthInfoDao {
 	}
 	
 	public List<SignalStrengthInfo> getByLocationId(Integer id){
-		this.init();
+//		this.init();
 		List<SignalStrengthInfo>list = new ArrayList<SignalStrengthInfo>();
-		String hql = "From SignalStrengthInfo WHERE location_id = '"+id.toString()+"'";
+		String hql = "From SignalStrengthInfo WHERE location_id = "+id.toString();
 		Query q = this.session.createQuery(hql);
 		list = q.list();
-		this.close();
+//		this.close();
 		return list;
 	}
 

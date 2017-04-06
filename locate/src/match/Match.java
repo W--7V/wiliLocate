@@ -38,12 +38,13 @@ public class Match {
 //		while(RSSlist1.size() > 6){
 //			RSSlist1.remove(RSSlist1.size()-1);
 //		}
-		for(int i=0; i < 8;i++){
+		for(int i=0; i < 6;i++){
 			temp.add(RSSlist1.get(i));
 		}
 		RSSlist1 = temp;
 		List<LocationInfo>list = locationInfoDao.getAll();
 		int n = list.size();
+		signalStrengthInfoDao.init();
 		for(int i=0;i < n;i++){
 			LocationInfo l = list.get(i);
 			this.currentDis=0.0;
@@ -62,6 +63,7 @@ public class Match {
 				if(flag == 0){
 					this.currentDis += Math.pow(s1, 2);
 				}
+				System.out.println(this.currentDis);
 			}
 			this.currentDis = Math.sqrt(this.currentDis);
 			l.setDis(this.currentDis.toString());
@@ -71,6 +73,7 @@ public class Match {
 				this.locateResult = l;
 			}
 		}
+		signalStrengthInfoDao.close();
 		dto.setLocationInfoDto(new LocationInfoDto(locateResult));
 		System.out.println("客户端所在位置:"+locateResult.getRealAddress());
 	}

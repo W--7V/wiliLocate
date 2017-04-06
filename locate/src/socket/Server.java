@@ -63,6 +63,7 @@ class HandlerThread implements Runnable{
 				LocationInfo l = new LocationInfo();
 				l.setRealAddress(dto.getLocationInfoDto().getRealAddress());
 				l = locationInfoDao.save(l);
+				signalStrengthInfoDao.init();
 				for (SignalStrengthInfoDto s : dto.getSignalStrengthInfoDto()) {
 					SignalStrengthInfo signalStrengthInfo = new SignalStrengthInfo();
 					signalStrengthInfo.setLocation(l);
@@ -71,6 +72,7 @@ class HandlerThread implements Runnable{
 					signalStrengthInfo.setSignalStrength(s.getSignalStrength());
 					signalStrengthInfoDao.save(signalStrengthInfo);
 				}
+				signalStrengthInfoDao.close();
 				dto.setOperationCode(5);
 			}else if(dto.getOperationCode() == 2){//调用匹配算法
 				if(dto.getSignalStrengthInfoDto().size() < 4){
