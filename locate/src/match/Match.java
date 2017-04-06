@@ -40,6 +40,7 @@ public class Match {
 		if(Integer.parseInt(temp.get(3).getSignalStrength()) < -80){
 			dto.setOperationCode(4);
 			dto.setReport("当前位置距离周围无线热点较远，定位误差较大！");
+			return dto;
 		}
 		RSSlist1 = temp;
 		List<LocationInfo>list = locationInfoDao.getAll();
