@@ -4,3 +4,5 @@
 /locate/.project
 /locate/.rebel.xml.bak
 /locate/src/hibernate.cfg.xml
+
+*.xml
