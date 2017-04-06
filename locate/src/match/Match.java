@@ -34,10 +34,10 @@ public class Match {
 		List<SignalStrengthInfoDto> RSSlist1 = new ArrayList<SignalStrengthInfoDto>(dto.getSignalStrengthInfoDto());
 		List<SignalStrengthInfoDto> temp = new ArrayList<SignalStrengthInfoDto>();
 		Collections.sort(RSSlist1);
-		for(int i=0; i < 6;i++){
+		for(int i=0; i < 4;i++){
 			temp.add(RSSlist1.get(i));
 		}
-		if(Integer.parseInt(temp.get(3).getSignalStrength()) < -80){
+		if(Integer.parseInt(temp.get(2).getSignalStrength()) < -80){
 			dto.setOperationCode(4);
 			dto.setReport("当前位置距离周围无线热点较远，定位误差较大！");
 			return dto;
