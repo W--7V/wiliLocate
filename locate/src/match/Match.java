@@ -80,4 +80,9 @@ public class Match {
 		return dto;
 	}
 	
+	public DataTransmissionObject Bayes(DataTransmissionObject dto){
+		
+		
+		return dto;
+	}
 }
