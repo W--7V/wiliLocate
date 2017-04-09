@@ -32,7 +32,7 @@ public class Match {
 		List<SignalStrengthInfoDto> RSSlist1 = new ArrayList<SignalStrengthInfoDto>(dto.getSignalStrengthInfoDto());
 		List<SignalStrengthInfoDto> temp = new ArrayList<SignalStrengthInfoDto>();
 		Collections.sort(RSSlist1);
-		for(int i=0; i < 4;i++){
+		for(int i=0; i < 10;i++){
 			temp.add(RSSlist1.get(i));
 		}
 		if(Integer.parseInt(temp.get(2).getSignalStrength()) < -80){
@@ -62,7 +62,7 @@ public class Match {
 				if(flag == 0){
 					this.currentDis += Math.pow(s1, 2);
 				}
-				System.out.println(this.currentDis);
+//				System.out.println(this.currentDis);
 			}
 			this.currentDis = Math.sqrt(this.currentDis);
 			l.setDis(this.currentDis.toString());
@@ -75,12 +75,6 @@ public class Match {
 		signalStrengthInfoDao.close();
 		dto.setLocationInfoDto(new LocationInfoDto(locateResult));
 		System.out.println("客户端所在位置:"+locateResult.getRealAddress());
-		return dto;
-	}
-	
-	public DataTransmissionObject Bayes(DataTransmissionObject dto){
-		
-		
 		return dto;
 	}
 }
