@@ -77,4 +77,11 @@ public class Match {
 		System.out.println("客户端所在位置:"+locateResult.getRealAddress());
 		return dto;
 	}
+	
+	//聚类算法
+	public void clusting(){
+		int k = 3;
+		List<LocationInfo>list = locationInfoDao.getAll();
+		
+	}
 }

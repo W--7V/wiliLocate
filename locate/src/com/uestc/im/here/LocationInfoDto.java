@@ -18,12 +18,18 @@ public class LocationInfoDto implements Serializable{
 	
 	private Date insertDate;
 	
+	private String x;
+	
+	private String y;
+	
 	public LocationInfoDto(){
 	}
 	public LocationInfoDto(LocationInfo locationInfo){
 		this.id = locationInfo.getId();
 		this.realAddress = locationInfo.getRealAddress();
 		this.insertDate = locationInfo.getInsertDate();
+		this.x = locationInfo.getX();
+		this.y = locationInfo.getY();
 	}
 	public Date getInsertDate() {
 		return insertDate;
@@ -42,5 +48,17 @@ public class LocationInfoDto implements Serializable{
 	}
 	public void setRealAddress(String realAddress) {
 		this.realAddress = realAddress;
+	}
+	public String getX() {
+		return x;
+	}
+	public void setX(String x) {
+		this.x = x;
+	}
+	public String getY() {
+		return y;
+	}
+	public void setY(String y) {
+		this.y = y;
 	}
 }

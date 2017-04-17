@@ -25,6 +25,14 @@ public class LocationInfo{
 	
 	private String dis;
 	
+	private String x;
+	
+	private String y;
+	
+	private String cluster_id;
+	
+	private boolean isClusterCenter;
+	
 	public Date getInsertDate() {
 		return insertDate;
 	}
@@ -49,5 +57,28 @@ public class LocationInfo{
 	public void setDis(String dis) {
 		this.dis = dis;
 	}
-	
+	public String getX() {
+		return x;
+	}
+	public void setX(String x) {
+		this.x = x;
+	}
+	public String getY() {
+		return y;
+	}
+	public void setY(String y) {
+		this.y = y;
+	}
+	public String getCluster_id() {
+		return cluster_id;
+	}
+	public void setCluster_id(String cluster_id) {
+		this.cluster_id = cluster_id;
+	}
+	public boolean isClusterCenter() {
+		return isClusterCenter;
+	}
+	public void setClusterCenter(boolean isClusterCenter) {
+		this.isClusterCenter = isClusterCenter;
+	}
 }
