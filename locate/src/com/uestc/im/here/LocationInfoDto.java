@@ -18,9 +18,9 @@ public class LocationInfoDto implements Serializable{
 	
 	private Date insertDate;
 	
-	private String x;
+	private String x;//x坐标
 	
-	private String y;
+	private String y;//y坐标
 	
 	public LocationInfoDto(){
 	}

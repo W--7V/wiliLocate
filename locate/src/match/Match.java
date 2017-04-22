@@ -20,15 +20,18 @@ public class Match {
 	private LocationInfoDao locationInfoDao;
 	private LocationInfo locateResult;
 	private SignalStrengthInfoDao signalStrengthInfoDao;
+	private Integer K;
 	
 	public Match(){
 		this.minDis = 10000000000.0;
 		this.locationInfoDao = new LocationInfoDao();
 		this.signalStrengthInfoDao = new SignalStrengthInfoDao();
+		this.K = 4;
 	}
 	
 	//Nearest Neighbor
 	public DataTransmissionObject NN(DataTransmissionObject dto){
+		List<LocationInfo> minDisList = new ArrayList<LocationInfo>();
 		List<SignalStrengthInfoDto> RSSlist1 = new ArrayList<SignalStrengthInfoDto>(dto.getSignalStrengthInfoDto());
 		List<SignalStrengthInfoDto> temp = new ArrayList<SignalStrengthInfoDto>();
 		Collections.sort(RSSlist1);
@@ -41,32 +44,27 @@ public class Match {
 			return dto;
 		}
 		RSSlist1 = temp;
+		
+		//获取离线数据
 		List<LocationInfo>list = locationInfoDao.getAll();
 		int n = list.size();
 		signalStrengthInfoDao.init();
-		for(int i=0;i < n;i++){
+		
+		for(int i=0;i < this.K;i++){
 			LocationInfo l = list.get(i);
-			this.currentDis=0.0;
-			for(int j=0;j < RSSlist1.size();j++){
-				List<SignalStrengthInfo> RSSlist2 = signalStrengthInfoDao.getByLocationId(l.getId());
-				Double s1 = Double.parseDouble(RSSlist1.get(j).getSignalStrength());
-				int flag=0;//后台Location数据中是否包含该AP信息0-否，1-是
-				for(int k=0;k < RSSlist2.size();k++){
-					if(RSSlist2.get(k).getMACAddress().equals(RSSlist1.get(j).getMACAddress())){
-						Double s2 = Double.parseDouble(RSSlist2.get(k).getSignalStrength());
-						this.currentDis += Math.pow((s1-s2), 2);
-						flag=1;
-						break;
-					}
-				}
-				if(flag == 0){
-					this.currentDis += Math.pow(s1, 2);
-				}
-//				System.out.println(this.currentDis);
-			}
-			this.currentDis = Math.sqrt(this.currentDis);
+			List<SignalStrengthInfo> RSS = signalStrengthInfoDao.getByLocationId(l.getId());
+			l.setDis(distance(RSSlist1, RSS).toString());
+			minDisList.add(list.get(i));
+		}
+		Collections.sort(minDisList);
+		
+		for(int i=this.K;i < n;i++){
+			LocationInfo l = list.get(i);
+			List<SignalStrengthInfo> RSSlist2 = signalStrengthInfoDao.getByLocationId(l.getId());
+			this.currentDis = distance(RSSlist1, RSSlist2);
 			l.setDis(this.currentDis.toString());
 			locationInfoDao.update(l);
+			
 			if(this.currentDis < this.minDis){
 				this.minDis = this.currentDis;
 				this.locateResult = l;
@@ -78,10 +76,25 @@ public class Match {
 		return dto;
 	}
 	
-	//聚类算法
-	public void clusting(){
-		int k = 3;
-		List<LocationInfo>list = locationInfoDao.getAll();
-		
+	//计算欧几里得距离
+	public Double distance(List<SignalStrengthInfoDto>RSSlist1, List<SignalStrengthInfo>RSSlist2){
+		Double dis = 0.0;
+		for(int j=0;j < RSSlist1.size();j++){
+			Double s1 = Double.parseDouble(RSSlist1.get(j).getSignalStrength());
+			int flag=0;//后台Location数据中是否包含该AP信息0-否，1-是
+			for(int k=0;k < RSSlist2.size();k++){
+				if(RSSlist2.get(k).getMACAddress().equals(RSSlist1.get(j).getMACAddress())){
+					Double s2 = Double.parseDouble(RSSlist2.get(k).getSignalStrength());
+					dis += Math.pow((s1-s2), 2);
+					flag=1;
+					break;
+				}
+			}
+			if(flag == 0){
+				dis += Math.pow(s1, 2);
+			}
+		}
+		dis = Math.sqrt(dis);
+		return dis;
 	}
 }

@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "t_location")
-public class LocationInfo{
+public class LocationInfo implements Comparable<LocationInfo>{
 	@Id
 	@GeneratedValue(generator = "increment")
 	@GenericGenerator(name = "increment", strategy = "increment")
@@ -25,9 +25,9 @@ public class LocationInfo{
 	
 	private String dis;
 	
-	private String x;
+	private String x;//x坐标
 	
-	private String y;
+	private String y;//y坐标
 	
 	private String cluster_id;
 	
@@ -80,5 +80,12 @@ public class LocationInfo{
 	}
 	public void setClusterCenter(boolean isClusterCenter) {
 		this.isClusterCenter = isClusterCenter;
+	}
+	@Override
+	public int compareTo(LocationInfo o) {
+		if(Integer.parseInt(this.dis) > Integer.parseInt(o.getDis())){
+			return 1;
+		}
+		return -1;
 	}
 }
