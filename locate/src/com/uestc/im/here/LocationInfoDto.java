@@ -18,9 +18,9 @@ public class LocationInfoDto implements Serializable{
 	
 	private Date insertDate;
 	
-	private String x;//x坐标
+	private Double x;//x坐标
 	
-	private String y;//y坐标
+	private Double y;//y坐标
 	
 	public LocationInfoDto(){
 	}
@@ -49,16 +49,16 @@ public class LocationInfoDto implements Serializable{
 	public void setRealAddress(String realAddress) {
 		this.realAddress = realAddress;
 	}
-	public String getX() {
+	public Double getX() {
 		return x;
 	}
-	public void setX(String x) {
+	public void setX(Double x) {
 		this.x = x;
 	}
-	public String getY() {
+	public Double getY() {
 		return y;
 	}
-	public void setY(String y) {
+	public void setY(Double y) {
 		this.y = y;
 	}
 }

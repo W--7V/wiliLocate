@@ -23,11 +23,11 @@ public class LocationInfo implements Comparable<LocationInfo>{
 	
 	private Date insertDate;
 	
-	private String dis;
+	private Double dis;
 	
-	private String x;//x坐标
+	private Double x;//x坐标
 	
-	private String y;//y坐标
+	private Double y;//y坐标
 	
 	private String cluster_id;
 	
@@ -51,22 +51,22 @@ public class LocationInfo implements Comparable<LocationInfo>{
 	public void setRealAddress(String realAddress) {
 		this.realAddress = realAddress;
 	}
-	public String getDis() {
+	public Double getDis() {
 		return dis;
 	}
-	public void setDis(String dis) {
+	public void setDis(Double dis) {
 		this.dis = dis;
 	}
-	public String getX() {
+	public Double getX() {
 		return x;
 	}
-	public void setX(String x) {
+	public void setX(Double x) {
 		this.x = x;
 	}
-	public String getY() {
+	public Double getY() {
 		return y;
 	}
-	public void setY(String y) {
+	public void setY(Double y) {
 		this.y = y;
 	}
 	public String getCluster_id() {
@@ -83,7 +83,7 @@ public class LocationInfo implements Comparable<LocationInfo>{
 	}
 	@Override
 	public int compareTo(LocationInfo o) {
-		if(Integer.parseInt(this.dis) > Integer.parseInt(o.getDis())){
+		if(this.dis > o.getDis()){
 			return 1;
 		}
 		return -1;
