@@ -1,4 +1,4 @@
-﻿package com.uestc.im.here;
+package com.uestc.im.here;
 
 import java.io.Serializable;
 import java.util.ArrayList;
