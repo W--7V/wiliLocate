@@ -14,11 +14,23 @@ public class Clustering {
 	
 	public Clustering() {//初始化聚类中心
 		list = locationInfoDao.getAll();
-		for(int i=0;i < K;i++){
-//			System.out.println(Math.r);
-			clusterCenter[i] = (int) Math.random()/list.size();
-			System.out.println(clusterCenter[i]);
+		for(int i=0;i < K;){
+			int rand = (int) (Math.random() * list.size());
+			Boolean b = isRepeat(i, rand);
+			if(b == true)continue;
+			else{
+				clusterCenter[i] = rand;
+				i++;
+			}
 		}
+	}
+	
+	private Boolean isRepeat(int j,int rand){
+		Boolean b = false;
+		for(int i=0;i < j;i++){
+			if(clusterCenter[i] == rand)b = true;
+		}
+		return b;
 	}
 	
 	public static void main(String[] args){
