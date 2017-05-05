@@ -38,9 +38,9 @@ public class Match {
 		List<SignalStrengthInfoDto> RSSlist1 = new ArrayList<SignalStrengthInfoDto>(dto.getSignalStrengthInfoDto());
 		List<SignalStrengthInfoDto> temp = new ArrayList<SignalStrengthInfoDto>();
 		Collections.sort(RSSlist1);
-//		for(int i=0; i < 10;i++){
-//			temp.add(RSSlist1.get(i));
-//		}
+		for(int i=0; i < 10;i++){
+			temp.add(RSSlist1.get(i));
+		}
 //		if(Integer.parseInt(temp.get(2).getSignalStrength()) < -80){
 //			dto.setOperationCode(4);
 //			dto.setReport("当前位置距离周围无线热点较远，定位误差较大！");
@@ -129,6 +129,7 @@ public class Match {
 			int flag=0;//后台Location数据中是否包含该AP信息0-否，1-是
 			for(int k=0;k < RSSlist2.size();k++){
 				if(RSSlist2.get(k).getMACAddress().equals(RSSlist1.get(j).getMACAddress())){
+//					System.out.println(RSSlist1.get(j).getWiFiName()+"========"+RSSlist2.get(k).getWiFiName());
 					Double s2 = Double.parseDouble(RSSlist2.get(k).getSignalStrength());
 					dis += Math.pow((s1-s2), 2);
 					flag=1;
@@ -136,8 +137,10 @@ public class Match {
 				}
 			}
 			if(flag == 0){
+//				System.out.println(RSSlist1.get(j).getWiFiName()+"!!!!!!!");
 				dis += Math.pow(s1, 2);
 			}
+			System.out.println(dis);
 		}
 		dis = Math.sqrt(dis);
 		return dis;
