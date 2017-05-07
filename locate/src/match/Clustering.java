@@ -79,7 +79,7 @@ public class Clustering {
 				List<SignalStrengthInfo> RSSlist2 = signalStrengthInfoDao.getByLocationId(list.get(clusterCenter[j]).getId());
 				Double dis = distance(RSSlist1,RSSlist2);
 				if(dis < minDis){
-					list.get(i).setCluster_id(list1.get(j).getId());
+					list.get(i).setClusterId(list1.get(j).getId());
 				}
 			}
 			locationInfoDao.update(list.get(i));
