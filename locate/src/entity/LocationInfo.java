@@ -29,7 +29,7 @@ public class LocationInfo implements Comparable<LocationInfo>{
 	
 	private Double y;//y坐标
 	
-	private String cluster_id;
+	private int cluster_id;
 	
 	private boolean isClusterCenter;
 	
@@ -69,16 +69,16 @@ public class LocationInfo implements Comparable<LocationInfo>{
 	public void setY(Double y) {
 		this.y = y;
 	}
-	public String getCluster_id() {
+	public int getCluster_id() {
 		return cluster_id;
 	}
-	public void setCluster_id(String cluster_id) {
+	public void setCluster_id(int cluster_id) {
 		this.cluster_id = cluster_id;
 	}
-	public boolean isClusterCenter() {
+	public boolean getIsClusterCenter() {
 		return isClusterCenter;
 	}
-	public void setClusterCenter(boolean isClusterCenter) {
+	public void setIsClusterCenter(boolean isClusterCenter) {
 		this.isClusterCenter = isClusterCenter;
 	}
 	@Override

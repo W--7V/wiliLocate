@@ -66,6 +66,16 @@ public class LocationInfoDao {
 		return list;
 	}
 	
+	public List<LocationInfo> getClusterCenter(){
+		this.init();
+		List<LocationInfo> list = new ArrayList<LocationInfo>();
+		String hql = "From LocationInfo where isClusterCenter = 1";
+		Query query =  this.session.createQuery(hql);
+		list = query.list();
+		this.close();
+		return list;
+	}
+	
 	public void deleteAll(){
 		this.init();
 		String hql = "Delete LocationInfo";
