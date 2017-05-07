@@ -88,7 +88,7 @@ public class Clustering {
 	}
 	
 	public void test(){
-		list = locationInfoDao.getClusterCenter();
+		list = locationInfoDao.getByClusterId(1);
 		for (LocationInfo l : list) {
 			System.out.println(l.getRealAddress());
 		}
