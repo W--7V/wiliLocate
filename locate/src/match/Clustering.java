@@ -62,9 +62,10 @@ public class Clustering {
 		return dis;
 	}
 	
-	//
+	//聚类算法
 	private void cluster(){
 		List<LocationInfo>list1 = new ArrayList<LocationInfo>();
+		List<LocationInfo>cluster = new ArrayList<LocationInfo>();
 		Double minDis = 100000000000.0;
 		for(int i=0;i < this.K;i++){
 			list1.add(list.get(clusterCenter[i]));
@@ -74,21 +75,73 @@ public class Clustering {
 		
 		signalStrengthInfoDao.init();
 		for(int i=0;i < list.size();i++){
-			for(int j=0;j < list1.size();j++){
-				List<SignalStrengthInfo> RSSlist1 = signalStrengthInfoDao.getByLocationId(list.get(i).getId());
-				List<SignalStrengthInfo> RSSlist2 = signalStrengthInfoDao.getByLocationId(list.get(clusterCenter[j]).getId());
-				Double dis = distance(RSSlist1,RSSlist2);
-				if(dis < minDis){
-					list.get(i).setClusterId(list1.get(j).getId());
+			if(list.get(i).getIsClusterCenter() == true){
+				list.get(i).setClusterId(list.get(i).getId());
+			}else{
+				for(int j=0;j < list1.size();j++){
+					List<SignalStrengthInfo> RSSlist1 = signalStrengthInfoDao.getByLocationId(list.get(i).getId());
+					List<SignalStrengthInfo> RSSlist2 = signalStrengthInfoDao.getByLocationId(list.get(clusterCenter[j]).getId());
+					Double dis = distance(RSSlist1,RSSlist2);
+					if(dis < minDis){
+						list.get(i).setClusterId(list1.get(j).getId());
+					}
 				}
 			}
 			locationInfoDao.update(list.get(i));
 		}
 		signalStrengthInfoDao.close();
+		
+		//更新聚类中心
+		for (LocationInfo l1 : list1) {//获得聚类中心
+			double dis = 0.0;
+			double minDist = 0.0;
+			LocationInfo newCenter = null;
+			int flag = 0;
+			
+			l1.setIsClusterCenter(false);
+			locationInfoDao.update(l1);
+			cluster = locationInfoDao.getByClusterId(l1.getId());
+			double x=0.0,y=0.0;
+			for (LocationInfo l2 : cluster) {
+				x += l2.getX();
+				y += l2.getY();
+			}
+			x = x/cluster.size();
+			y = y/cluster.size();
+			
+			minDist = realDistance(x, y, l1);
+			
+			for (LocationInfo l3 : cluster) {
+				dis = realDistance(x, y, l3);
+				if(dis < minDist){
+					newCenter = l3;
+					flag = 1;
+				}
+			}
+			if(flag == 1){
+				newCenter.setIsClusterCenter(true);
+				for (LocationInfo locationInfo : cluster) {
+					locationInfo.setClusterId(newCenter.getId());
+					locationInfoDao.update(locationInfo);
+				}
+			}else{
+				l1.setIsClusterCenter(true);
+				locationInfoDao.update(l1);
+			}
+		}
+		
+	}
+	
+	public double realDistance(double x,double y, LocationInfo l){
+		double dis = 0.0;
+		dis += Math.pow(x-l.getX(), 2);
+		dis += Math.pow(y-l.getY(), 2);
+		dis = Math.sqrt(dis);
+		return dis;
 	}
 	
 	public void test(){
-		list = locationInfoDao.getByClusterId(1);
+		list = locationInfoDao.getClusterCenter();
 		for (LocationInfo l : list) {
 			System.out.println(l.getRealAddress());
 		}
@@ -96,7 +149,7 @@ public class Clustering {
 	
 	public static void main(String[] args){
 		Clustering clustering = new Clustering();
-//		clustering.cluster();
+		clustering.cluster();
 		clustering.test();
 	}
 	
