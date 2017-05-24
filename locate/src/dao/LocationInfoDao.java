@@ -19,22 +19,23 @@ public class LocationInfoDao {
 	private SessionFactory sessionFactory;
 	private Session session;
 	
-	public void init(){
+	public void init(){//初始化配置
 		this.configuration = new Configuration().configure();
-		this.serviceRegistry =  new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
+		this.serviceRegistry =  new ServiceRegistryBuilder().applySettings(
+				configuration.getProperties()).buildServiceRegistry();
 		this.sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 		this.session = sessionFactory.openSession();
 		this.session.beginTransaction();
 	}
 	
-	public void close(){
+	public void close(){//提交事务，销毁session
 		this.session.getTransaction().commit();
 		this.session.flush();
 		this.session.close();
 		this.sessionFactory.close();
 	}
 	
-	public LocationInfo save(LocationInfo location){
+	public LocationInfo save(LocationInfo location){//保存位置信息
 		this.init();
 		location.setInsertDate(new Date());
 		this.session.save(location);
@@ -42,21 +43,21 @@ public class LocationInfoDao {
 		return location;
 	}
 	
-	public LocationInfo update(LocationInfo locationInfo){
+	public LocationInfo update(LocationInfo locationInfo){//更新位置信息
 		this.init();
 		this.session.update(locationInfo);
 		this.close();
 		return locationInfo;
 	}
 	
-	public LocationInfo get(int id){
+	public LocationInfo get(int id){//获取某一点位置信息
 		this.init();
 		LocationInfo location = (LocationInfo) this.session.get(LocationInfo.class, id);
 		this.close();
 		return location;
 	}
 	
-	public List<LocationInfo> getAll(){
+	public List<LocationInfo> getAll(){//获取全部位置信息
 		this.init();
 		List<LocationInfo> list = new ArrayList<LocationInfo>();
 		String hql = "From LocationInfo";
@@ -66,7 +67,7 @@ public class LocationInfoDao {
 		return list;
 	}
 	
-	public List<LocationInfo> getClusterCenter(){
+	public List<LocationInfo> getClusterCenter(){//获取全部聚类中心点
 		this.init();
 		List<LocationInfo> list = new ArrayList<LocationInfo>();
 		String hql = "From LocationInfo where isClusterCenter = 1";
@@ -76,7 +77,7 @@ public class LocationInfoDao {
 		return list;
 	}
 	
-	public List<LocationInfo> getByClusterId(int id){
+	public List<LocationInfo> getByClusterId(int id){//获取某一聚类中所有位置信息
 		this.init();
 		List<LocationInfo> list = new ArrayList<LocationInfo>();
 		String hql = "From LocationInfo where clusterId = '" + id +"'";
