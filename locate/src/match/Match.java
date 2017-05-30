@@ -38,7 +38,7 @@ public class Match {
 		List<SignalStrengthInfoDto> RSSlist1 = new ArrayList<SignalStrengthInfoDto>(dto.getSignalStrengthInfoDto());
 		List<SignalStrengthInfoDto> temp = new ArrayList<SignalStrengthInfoDto>();
 		Collections.sort(RSSlist1);
-		for(int i=0; i < 6;i++){
+		for(int i=0; i < 10;i++){
 			temp.add(RSSlist1.get(i));
 		}
 //		if(Integer.parseInt(temp.get(2).getSignalStrength()) < -80){
@@ -115,9 +115,10 @@ public class Match {
 			this.y += locationInfo.getY();
 		}
 		locateResult.setX(this.x/this.K);
-		locateResult.setX(this.y/this.K);
+		locateResult.setY(this.y/this.K);
 		dto.setLocationInfoDto(new LocationInfoDto(locateResult));
-		System.out.println("客户端所在位置:"+locateResult.getRealAddress());
+		System.out.println(locateResult.getX() + " " + locateResult.getY());
+//		System.out.println("客户端所在位置:"+locateResult.getRealAddress());
 		return dto;
 	}
 	
@@ -140,7 +141,7 @@ public class Match {
 //				System.out.println(RSSlist1.get(j).getWiFiName()+"!!!!!!!");
 				dis += Math.pow(s1, 2);
 			}
-			System.out.println(dis);
+//			System.out.println(dis);
 		}
 		dis = Math.sqrt(dis);
 		return dis;
