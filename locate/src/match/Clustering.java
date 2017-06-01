@@ -66,7 +66,7 @@ public class Clustering {
 	private void cluster(){
 		List<LocationInfo>list1 = new ArrayList<LocationInfo>();
 		List<LocationInfo>cluster = new ArrayList<LocationInfo>();
-		Double minDis = 100000000000.0;
+		Double minDis;
 		for(int i=0;i < this.K;i++){
 			list1.add(list.get(clusterCenter[i]));
 			list1.get(i).setIsClusterCenter(true);
@@ -75,6 +75,7 @@ public class Clustering {
 		
 		signalStrengthInfoDao.init();
 		for(int i=0;i < list.size();i++){
+			minDis = 10000.0;
 			if(list.get(i).getIsClusterCenter() == true){
 				list.get(i).setClusterId(list.get(i).getId());
 			}else{
@@ -84,6 +85,7 @@ public class Clustering {
 					Double dis = distance(RSSlist1,RSSlist2);
 					if(dis < minDis){
 						list.get(i).setClusterId(list1.get(j).getId());
+						minDis = dis;
 					}
 				}
 			}
@@ -129,7 +131,6 @@ public class Clustering {
 				locationInfoDao.update(l1);
 			}
 		}
-		
 	}
 	
 	public double realDistance(double x,double y, LocationInfo l){
