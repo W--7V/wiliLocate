@@ -1,7 +1,10 @@
 package match;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import com.uestc.im.here.SignalStrengthInfoDto;
 
 import dao.LocationInfoDao;
 import dao.SignalStrengthInfoDao;
@@ -29,6 +32,7 @@ public class Clustering {
 		}
 	}
 	
+	//判断取得随机数是否重复
 	private Boolean isRepeat(int j,int rand){
 		Boolean b = false;
 		for(int i=0;i < j;i++){
@@ -40,6 +44,12 @@ public class Clustering {
 	//计算欧几里得距离
 	public Double distance(List<SignalStrengthInfo>RSSlist1, List<SignalStrengthInfo>RSSlist2){
 		Double dis = 0.0;
+		List<SignalStrengthInfo> temp = new ArrayList<SignalStrengthInfo>();
+		Collections.sort(RSSlist1);
+		for(int k=0; k < 10;k++){
+			temp.add(RSSlist1.get(k));
+		}
+		RSSlist1 = temp;
 		for(int j=0;j < RSSlist1.size();j++){
 			Double s1 = Double.parseDouble(RSSlist1.get(j).getSignalStrength());
 			int flag=0;//后台Location数据中是否包含该AP信息0-否，1-是
@@ -142,16 +152,20 @@ public class Clustering {
 	}
 	
 	public void test(){
-		list = locationInfoDao.getClusterCenter();
-		for (LocationInfo l : list) {
-			System.out.println(l.getRealAddress());
+//		list = locationInfoDao.getAll();
+		signalStrengthInfoDao.init();
+		List<SignalStrengthInfo> RSSlist2 = signalStrengthInfoDao.getByLocationId(10);
+		for(int i=0;i < list.size();i++){
+			List<SignalStrengthInfo> RSSlist1 = signalStrengthInfoDao.getByLocationId(list.get(i).getId());
+			System.out.println(distance(RSSlist1, RSSlist2));
 		}
+		signalStrengthInfoDao.close();
 	}
 	
 	public static void main(String[] args){
 		Clustering clustering = new Clustering();
 		clustering.cluster();
-		clustering.test();
+//		clustering.test();
 	}
 	
 }

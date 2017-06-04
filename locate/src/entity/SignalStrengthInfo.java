@@ -12,9 +12,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.uestc.im.here.SignalStrengthInfoDto;
+
 @Entity
 @Table(name = "t_signalstrength")
-public class SignalStrengthInfo{
+public class SignalStrengthInfo implements Comparable<SignalStrengthInfo>{
 	@Id
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment",strategy="increment")
@@ -61,5 +63,11 @@ public class SignalStrengthInfo{
 	public void setLocation(LocationInfo location) {
 		this.location = location;
 	}
-	
+	@Override
+	public int compareTo(SignalStrengthInfo o) {
+		if(Integer.parseInt(this.signalStrength) > Integer.parseInt(o.getSignalStrength())){
+			return -1;
+		}
+		return 1;
+	}
 }
