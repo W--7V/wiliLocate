@@ -113,7 +113,7 @@ public class Clustering {
 			
 			l1.setIsClusterCenter(false);
 			locationInfoDao.update(l1);
-			cluster = locationInfoDao.getByClusterId(l1.getId());
+			cluster = locationInfoDao.getByClusterId(l1.getClusterId());
 			double x=0.0,y=0.0;
 			for (LocationInfo l2 : cluster) {
 				x += l2.getX();
