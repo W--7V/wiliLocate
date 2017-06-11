@@ -103,6 +103,7 @@ public class Clustering {
 		}
 		signalStrengthInfoDao.close();
 		
+		System.out.println("");
 		//更新聚类中心
 		for (LocationInfo l1 : list1) {//获得聚类中心
 			double dis = 0.0;
