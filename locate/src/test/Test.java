@@ -1,17 +1,19 @@
 package test;
 
-import java.util.List;
 
-import dao.LocationInfoDao;
-import dao.SignalStrengthInfoDao;
-import entity.LocationInfo;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 
 public class Test {
-
+	static Logger logger = Logger.getLogger(Test.class);
+	
 	public static void main(String[] args) {
-		LocationInfoDao dao2 = new LocationInfoDao();
-		List<LocationInfo>list = dao2.getAll();
-		System.out.println(list.get(0).getRealAddress());
+		BasicConfigurator.configure();
+		logger.setLevel(Level.DEBUG);
+		logger.trace("跟踪信息");
+		logger.debug("调试信息");
 	}
 
 }
