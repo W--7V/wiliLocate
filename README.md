@@ -2,4 +2,5 @@
 
 wifi indoor locate
 
-algorithm:Nearest Neighbor
+algorithm:K-Nearest Neighbor
+finished
