@@ -6,9 +6,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import util.ObjectHelper;
 import match.Match;
+
 import com.uestc.im.here.DataTransmissionObject;
 import com.uestc.im.here.SignalStrengthInfoDto;
+
 import dao.LocationInfoDao;
 import dao.SignalStrengthInfoDao;
 import entity.LocationInfo;
@@ -62,11 +66,11 @@ class HandlerThread implements Runnable{
 			if(dto.getOperationCode() == 1){//保存离线数据
 				LocationInfo l = new LocationInfo();
 				int flag = 1;
-//				if(ObjectHelper.isEmpty(dto.getLocationInfoDto().getRealAddress()) || ObjectHelper.isEmpty(dto.getLocationInfoDto().getX()) ||ObjectHelper.isEmpty(dto.getLocationInfoDto().getY())){
-//					dto.setReport("位置信息不能为空！");
-//					dto.setOperationCode(4);
-//					flag = 0;
-//				}
+				if(ObjectHelper.isEmpty(dto.getLocationInfoDto().getRealAddress()) || ObjectHelper.isEmpty(dto.getLocationInfoDto().getX()) ||ObjectHelper.isEmpty(dto.getLocationInfoDto().getY())){
+					dto.setReport("位置信息不能为空！");
+					dto.setOperationCode(4);
+					flag = 0;
+				}
 				if(flag == 1){
 					l.setRealAddress(dto.getLocationInfoDto().getRealAddress());
 					l.setX(dto.getLocationInfoDto().getX());
