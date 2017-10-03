@@ -5,3 +5,8 @@
 /locate/.rebel.xml.bak
 
 locate/src/hibernate.cfg.xml
+/bin/
+
+/.classpath
+/.project
+/.settings/
